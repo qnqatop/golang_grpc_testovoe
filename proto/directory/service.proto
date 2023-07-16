@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package directory.service;
+
+option go_package = "../../lib/directory";
+
+import "directory/model.proto";
+
+service DirectoryInfoService {
+  rpc GetInformationForPath(model.DirectoryRequest) returns (model.DirectoryResponse);
+}
