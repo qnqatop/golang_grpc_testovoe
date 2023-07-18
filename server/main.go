@@ -2,15 +2,17 @@ package main
 
 import (
 	"fmt"
-	"golang_grpc_testovoe/backend/controller"
-	"golang_grpc_testovoe/backend/service"
 	"golang_grpc_testovoe/lib/directory"
+	"golang_grpc_testovoe/server/config"
+	"golang_grpc_testovoe/server/controller"
+	"golang_grpc_testovoe/server/service"
 	"google.golang.org/grpc"
 	"log"
 	"net"
 )
 
 func main() {
+	config.ApplicationConfig = config.NewConfig()
 
 	listener, err := net.Listen("tcp", ":8080")
 

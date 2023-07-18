@@ -8,21 +8,20 @@ message DirectoryRequest {
   string path = 1;
 }
 
+message DirectoryResponse {
+  repeated FileCollection files = 1;
+  repeated DirCollection directories = 2;
+}
+
 message FileCollection {
   string name = 1;
   string size = 2;
 }
 
-message DirectoryCollection {
+message DirCollection {
   string name = 1;
   string size = 2;
 }
-
-message DirectoryResponse {
-  repeated FileCollection files = 1;
-  repeated DirectoryCollection directories = 2;
-}
-
 
 
 
