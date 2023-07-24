@@ -4,8 +4,7 @@
 
 1. Установка protoc - https://grpc.io/docs/protoc-installation/
 2. Установка protoc golang - https://grpc.io/docs/languages/go/quickstart/
-3. Установка protoc dart - https://grpc.io/docs/languages/dart/quickstart/
-4. Установка grpc-ui - https://github.com/fullstorydev/grpcui
+3. Установка grpc-ui - https://github.com/fullstorydev/grpcui
 
 ## Задача
 ```
