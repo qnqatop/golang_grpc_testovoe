@@ -28,7 +28,10 @@ func (d DirectoryInfoService) GetInfoFromPath(path string) (directory.DirectoryR
 
 	flag, val := d.checkCachePath(path)
 	if flag {
-		_ = json.Unmarshal([]byte(val), &resp)
+		err := json.Unmarshal([]byte(val), &resp)
+		if err != nil {
+			return resp, err
+		}
 		return resp, nil
 	}
 	items, err := os.ReadDir(path)
@@ -52,7 +55,10 @@ func (d DirectoryInfoService) GetInfoFromPath(path string) (directory.DirectoryR
 				Size: strconv.Itoa(int(size)) + " bytes",
 			})
 		} else {
-			fileInfo, _ := os.Stat(path + name)
+			fileInfo, err := os.Stat(path + name)
+			if err != nil {
+				return resp, err
+			}
 			fileSize := fileInfo.Size()
 			fileCollection = append(fileCollection, &directory.FileCollection{
 				Name: i.Name(),
@@ -78,7 +84,10 @@ func (d DirectoryInfoService) newCachePath(path string, resp *directory.Director
 	ctx := context.Background()
 	rdb := config.ApplicationConfig.GetRDb()
 
-	val, _ := rdb.Exists(ctx, path).Result()
+	val, err := rdb.Exists(ctx, path).Result()
+	if err != nil {
+		return status.Error(codes.Internal, err.Error())
+	}
 	if val == 1 {
 		return status.Error(codes.AlreadyExists, "already sent")
 	} else {
